@@ -1,0 +1,5 @@
+.env
+.parcel-cache
+.idea
+node_modules
+react-app/dist
