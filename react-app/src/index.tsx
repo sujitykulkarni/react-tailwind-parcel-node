@@ -15,8 +15,6 @@ import PlayerPastSeasons from "./modules/PlayerSummary/PlayerPastSeasons";
 import PlayerSummary from "./modules/PlayerSummary/PlayerSummary";
 import PlayerVisualizations from "./modules/PlayerSummary/PlayerVisualizations";
 import { Root } from "./modules/Root";
-import HomeVsAwayChart from "./modules/PlayerSummary/Charts/HomeVsAwayChart";
-import FixtureEventFlow from "./components/EventFlowChart/FixtureEventFlow";
 import Fixtures from "./modules/Fixtures/Fixtures";
 
 export const router = createBrowserRouter([
