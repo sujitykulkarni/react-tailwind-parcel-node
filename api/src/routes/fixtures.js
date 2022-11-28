@@ -1,7 +1,6 @@
 const fixtures = require("express").Router();
 const axios = require("axios");
 const cache = require("../cache/cache");
-
 /**
  * Fixture details
  */
@@ -25,11 +24,29 @@ fixtures.get("/gameweeks", async (req, res, next) => {
 });
 
 /**
- * Fixture details
+ * Single Fixture details
  */
 fixtures.get("/:fixtureId", async (req, res, next) => {
   try {
     const { fixtureId } = req.params;
+    const { data } = await axios.get(
+      "https://fantasy.premierleague.com/api/fixtures/",
+      {
+        param: { event: fixtureId },
+      }
+    );
+    res.send(data);
+  } catch (error) {
+    res.sendStatus(500);
+    next(error);
+  }
+});
+
+/**
+ * Single Fixture details
+ */
+fixtures.get("/", async (req, res, next) => {
+  try {
     const { data } = await axios.get(
       "https://fantasy.premierleague.com/api/fixtures/"
     );
