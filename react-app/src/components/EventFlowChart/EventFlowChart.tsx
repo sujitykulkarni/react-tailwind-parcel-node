@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import D3EventFlowViz, { D3EventFlowVizData } from "./d3EventFlowChart";
 
-const FixtureEventFlow = React.memo(
+const EventFlowChart = React.memo(
   ({ data }: { data: D3EventFlowVizData[] }) => {
     const [width, setWidth] = useState(window.screen.width - 20);
     const [height, setHeight] = useState(150);
@@ -34,4 +34,4 @@ const FixtureEventFlow = React.memo(
   }
 );
 
-export default FixtureEventFlow;
+export default EventFlowChart;
