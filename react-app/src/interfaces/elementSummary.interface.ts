@@ -1,3 +1,5 @@
+import { Fixture } from "./fixtures.interface";
+
 export type ElementHomeVsAwayStat = {
   stat_key: string;
   home: number;
@@ -16,7 +18,7 @@ export type ElementStatsByOpponentStrength = Pick<
 };
 
 export interface ElementSummary {
-  fixtures: Fixture[];
+  fixtures: AdvancedFixtureInfo[];
   history: History[];
   history_past: HistoryPast[];
   stats: {
@@ -84,24 +86,13 @@ export interface History {
   transfers_out: number;
 }
 
-export interface Fixture {
-  id: number;
-  code: number;
-  team_h: number;
-  team_h_score?: any;
-  team_a: number;
-  team_a_score?: any;
-  event?: number;
-  finished: boolean;
-  minutes: number;
-  provisional_start_time: boolean;
-  kickoff_time?: string;
+export interface AdvancedFixtureInfo extends Fixture {
   event_name?: string;
   is_home: boolean;
   difficulty: number;
 }
 
-export interface FixtureWithTeamShortNames extends Fixture {
+export interface FixtureWithTeamShortNames extends AdvancedFixtureInfo {
   home_team_short_name?: string;
   away_team_short_name?: string;
 }
