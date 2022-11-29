@@ -1,3 +1,5 @@
+import { Team } from "./teams.interfaces";
+
 export interface Fixture {
   code: number;
   event: number;
@@ -28,3 +30,15 @@ export interface StatInfo {
   value: number;
   element: number;
 }
+
+export interface FixtureDifficultyCorrelation
+  extends Pick<Team, "code" | "short_name">,
+    Pick<
+      Fixture,
+      | "id"
+      | "event"
+      | "team_h_difficulty"
+      | "team_a_difficulty"
+      | "team_a_score"
+      | "team_h_score"
+    > {}
