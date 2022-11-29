@@ -4,7 +4,10 @@ import { Event } from "../interfaces/events.interface";
 import { Element } from "../interfaces/element.interface";
 import { ElementSummary } from "../interfaces/elementSummary.interface";
 import { API_HOST } from "../constants";
-import { Fixture } from "../interfaces/fixtures.interface";
+import {
+  Fixture,
+  FixtureDifficultyCorrelation,
+} from "../interfaces/fixtures.interface";
 
 export const fetchElements = async () =>
   await new Promise<Element[]>((resolve, reject) => {
@@ -54,6 +57,19 @@ export const fetchFixtures = async () =>
   await new Promise<Fixture[]>((resolve, reject) => {
     axios
       .get<Fixture[]>(`${API_HOST}/fixtures/`)
+      .then(({ status, data }) => {
+        if (status === 200) resolve(data);
+        else reject();
+      })
+      .catch((e) => reject);
+  });
+
+export const fetchFixtureCorelation = async () =>
+  await new Promise<FixtureDifficultyCorrelation[]>((resolve, reject) => {
+    axios
+      .get<FixtureDifficultyCorrelation[]>(
+        `${API_HOST}/fixtures/corelation/difficulty/score`
+      )
       .then(({ status, data }) => {
         if (status === 200) resolve(data);
         else reject();
