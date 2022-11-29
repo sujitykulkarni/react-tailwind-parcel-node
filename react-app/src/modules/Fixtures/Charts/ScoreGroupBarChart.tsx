@@ -6,7 +6,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   Bar,
 } from "recharts";
 
@@ -48,7 +47,7 @@ const ScoreGroupBarChart = ({
           domain={[0, "dataMax"]}
         />
         <Tooltip />
-        <Bar dataKey="value" fill="#8884d8" />
+        <Bar dataKey="value" fill="#10b981" />
       </BarChart>
     </ResponsiveContainer>
   );
