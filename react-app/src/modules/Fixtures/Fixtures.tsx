@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useFixtureStore } from "../../store/fixture.store";
 import EventFlowChart from "../../components/EventFlowChart/EventFlowChart";
 import ScoreGroupPie from "./Charts/ScoreGroupPie";
 import ScoreGroupBarChart from "./Charts/ScoreGroupBarChart";
 
 const Fixtures = () => {
+  const [chartType, setChartType] = useState<"pie" | "bar">("bar");
   const [gameWeeks, fixtures, fetchGameWeeks, fetchFixtures] = useFixtureStore(
     (state) => [
       state.gameWeeks,
@@ -73,20 +74,24 @@ const Fixtures = () => {
     <div className="min-h-screen p-2 flex flex-col justify-start gap-4">
       <div>
         <h1 className="text-2xl">
-          Fixtures sized by transfers made per game week.
+          Fixtures sized by transfers made per game week
         </h1>
         <EventFlowChart data={gameWeekEventFlowData} />
       </div>
       <div>
         <div className="flex justify-between">
-          <h1 className="text-2xl">Scores grouped by their count</h1>
-          <div>
-            <button>Pie</button>
-            <button>Bar</button>
+          <h1 className="text-2xl">
+            Scores from completed fixtures grouped by their count
+          </h1>
+          <div className="flex gap-2">
+            <button onClick={() => setChartType("pie")}>Pie</button>
+            <button onClick={() => setChartType("bar")}>Bar</button>
           </div>
         </div>
-        {/* <ScoreGroupPie data={scoreHistogramData} /> */}
-        <ScoreGroupBarChart data={scoreHistogramData} />
+        {chartType === "pie" && <ScoreGroupPie data={scoreHistogramData} />}
+        {chartType === "bar" && (
+          <ScoreGroupBarChart data={scoreHistogramData} />
+        )}
       </div>
     </div>
   ) : null;
