@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { usePlayersStore } from "../../store/player.store";
 import { useTeamStore } from "../../store/team.store";
 import { isEmpty } from "lodash";
 import { ELEMENT_TYPE } from "../../constants";
+import { Navbar } from "../../components/Navigation/Navbar";
 
+/**
+ * Renders a player's summary data
+ * @returns
+ */
 const PlayerSummary = () => {
   const { id } = useParams();
   const [playersStore, summaryStore, fetchPlayers, fetchSummary] =
@@ -72,29 +77,14 @@ const PlayerSummary = () => {
         </div>
       )}
       <div className="flex flex-col grow-0 gap-8 w-full">
-        <nav className="flex flex-row sm:justify-center lg:justify-start max-w-full py-2">
-          <ul className="inline-flex gap-2">
-            {[
-              { path: "homeaway", label: "Home Vs Away" },
-              { path: "fixtures", label: "Fixtures" },
-              { path: "past", label: "Past Seasons" },
-              { path: "visualizations", label: "Visualizations" },
-            ].map((item) => (
-              <li key={item.label.trim()} className="">
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `${
-                      isActive ? "bg-blue-400 text-white" : "bg-blue-200"
-                    } px-2 py-1 rounded`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <Navbar
+          links={[
+            { path: "homeaway", label: "Home Vs Away Record" },
+            { path: "fixtures", label: "Remaining Fixtures" },
+            { path: "past", label: "Past Seasons" },
+            { path: "visualizations", label: "Visualizations" },
+          ]}
+        />
         {summaryStore[id] && (
           <Outlet context={{ playersSummary: summaryStore[id] }} />
         )}
