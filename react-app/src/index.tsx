@@ -16,7 +16,10 @@ import PlayerSummary from "./modules/PlayerSummary/PlayerSummary";
 import PlayerVisualizations from "./modules/PlayerSummary/PlayerVisualizations";
 import { Root } from "./modules/Root";
 import Fixtures from "./modules/Fixtures/Fixtures";
+import { FixtureEvents } from "./modules/Fixtures/Charts/FixtureEvents";
+import { ScoreGroupCharts } from "./modules/Fixtures/ScoreGroupCharts";
 
+// Router config
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +33,21 @@ export const router = createBrowserRouter([
       {
         path: "/fixtures",
         element: <Fixtures />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <FixtureEvents />,
+          },
+          {
+            path: "events",
+            element: <FixtureEvents />,
+          },
+          {
+            path: "scores",
+            element: <ScoreGroupCharts />,
+          },
+        ],
       },
       {
         path: "/player/:id",
@@ -88,6 +106,10 @@ export const router = createBrowserRouter([
   },
 ]);
 
+/**
+ * Root component
+ * @returns
+ */
 const App: React.FunctionComponent<{}> = () => {
   return (
     <React.StrictMode>
