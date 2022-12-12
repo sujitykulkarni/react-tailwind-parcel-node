@@ -1,16 +1,24 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import D3EventFlowViz, { D3EventFlowVizData } from "./d3EventFlowChart";
+import D3EventFlowViz, { D3EventFlowData } from "./d3EventFlowChart";
 
+/**
+ * @description Component that renders event flow visualization using D3EventFlowViz
+ */
 const EventFlowChart = React.memo(
-  ({ data }: { data: D3EventFlowVizData[] }) => {
+  ({
+    data,
+    id,
+    ...restDivProps
+  }: { data: D3EventFlowData[] } & Required<
+    Pick<React.HTMLProps<HTMLDivElement>, "id">
+  >) => {
     const [width, setWidth] = useState(window.screen.width - 20);
     const [height, setHeight] = useState(150);
     const d3ContainerRef = useRef(null);
-    const viz = useRef<D3EventFlowViz | null>(null);
 
     useEffect(() => {
-      if (d3ContainerRef.current && !viz.current) {
-        viz.current = new D3EventFlowViz(d3ContainerRef.current, {
+      if (data.length) {
+        const viz = new D3EventFlowViz({
           width,
           height,
           margin: {
@@ -19,18 +27,20 @@ const EventFlowChart = React.memo(
             right: 15,
             bottom: 15,
           },
+          id,
           data,
         });
+        viz.draw();
       }
     }, [d3ContainerRef.current, width, height, data]);
 
-    useLayoutEffect(() => {
-      if (viz.current) {
-        viz.current.draw();
-      }
-    }, []);
+    if (!data.length) return <span>Loading...</span>;
 
-    return <div ref={d3ContainerRef}></div>;
+    return (
+      <div {...restDivProps} id={id} className="d3-event-flow">
+        <svg className="svg"></svg>
+      </div>
+    );
   }
 );
 
