@@ -1,34 +1,79 @@
+/**
+ * D3 Event Flow Visualization
+ * @author Sujit Kulkarni <sujitykulkarni@gmail.com>
+ */
+/**
+ * @typedef {Object} D3EventFlowData
+ * @property {Date} time - time of the event
+ * @property {string} event - event name
+ * @property {string} [label] - event label
+ * @property {number} [size] - numeric representation of the event
+ */
+
+/**
+ * @typedef {number} ChartMargin - Top, Right, Left & Bottom margins
+ */
+
+/**
+ * @typedef {Object} Dot - Dot representing the size of the event
+ * @property {number} radius - Radius of the dot
+ */
+
 import * as d3 from "d3";
 
-export type D3EventFlowVizData = {
+/**
+ * @type D3EventFlowData
+ */
+export type D3EventFlowData = {
   time: Date;
   event: string;
   label?: string;
   size?: number;
 };
 
-type D3EventFlowVizProps = {
+/**
+ * @type ChartMargin
+ */
+export type ChartMargin = Record<"top" | "right" | "bottom" | "left", number>;
+
+/**
+ * @type Dot
+ */
+export type Dot = {
+  radius: number;
+};
+
+/**
+ * @description D3 Event Flow Visualization
+ * @interface D3EventFlowVizProps
+ * @property {number} width - chart width
+ * @property {number} height - chart height
+ * @property {ChartMargin} margin - chart margin
+ * @property {Dot} [dot] - dot props
+ */
+interface D3EventFlowVizProps {
   width: number;
   height: number;
-  margin: Record<"top" | "right" | "bottom" | "left", number>;
-  dot?: {
-    radius: number;
-  };
-  data: D3EventFlowVizData[];
-};
-const WIDTH = 500;
-const HEIGHT = 500;
-const TOP = 10;
-const RIGHT = 10;
-const LEFT = 10;
-const BOTTOM = 10;
-const DOT_RADIUS = 15;
-const DOT_COLOR = "#93c5fd";
-const AXIS_COLOR = "#64748b";
-const LABEL_COLOR = "#1e293b";
-const BASE_FONT_SIZE = 10;
+  margin: ChartMargin;
+  dot?: Dot;
+  data: D3EventFlowData[];
+  id: string;
+}
 
-const initProps = {
+// Chart constants
+const WIDTH = 500,
+  HEIGHT = 500,
+  TOP = 10,
+  RIGHT = 10,
+  LEFT = 10,
+  BOTTOM = 10,
+  DOT_RADIUS = 15,
+  DOT_COLOR = "#93c5fd",
+  AXIS_COLOR = "#64748b",
+  LABEL_COLOR = "#1e293b",
+  BASE_FONT_SIZE = 10;
+
+const initProps: D3EventFlowVizProps = {
   width: WIDTH,
   height: HEIGHT,
   margin: { top: TOP, right: RIGHT, left: LEFT, bottom: BOTTOM },
@@ -36,29 +81,55 @@ const initProps = {
     radius: DOT_RADIUS,
   },
   data: [],
+  id: "",
 };
 
+/**
+ * @description Event flow visualization rendered using d3.js time scale function.
+ * @export
+ * @class D3EventFlowViz
+ */
 export default class D3EventFlowViz {
+  /**
+   * @description The SVG element wherein visualization is to be rendered
+   * @private
+   * @memberof D3EventFlowViz
+   */
   private svg;
-  private props: Required<D3EventFlowVizProps> = initProps;
-  constructor(
-    element: any,
-    { width, height, margin, dot, data }: D3EventFlowVizProps
-  ) {
+
+  /**
+   * @description Visualization properties
+   * @private
+   * @type {D3EventFlowVizProps}
+   * @memberof D3EventFlowViz
+   */
+  private props: D3EventFlowVizProps = initProps;
+
+  /**
+   * Creates an instance of D3EventFlowViz.
+   * @param {D3EventFlowVizProps} { width, height, margin, dot, data, id }
+   * @memberof D3EventFlowViz
+   */
+  constructor({ width, height, margin, dot, data, id }: D3EventFlowVizProps) {
     this.props = {
       width: width - margin.left - margin.right,
       height: height - margin.top - margin.bottom,
       margin,
       dot: dot || initProps.dot,
       data,
+      id,
     };
     this.svg = d3
-      .select(element)
-      .append("svg")
+      .select(`#${id}.d3-event-flow .svg`)
       .attr("width", this.props.width)
       .attr("height", this.props.height);
+    this.svg.selectAll("*").remove();
   }
 
+  /**
+   * @description Draw the visualization based on given properties
+   * @memberof D3EventFlowViz
+   */
   draw = () => {
     const { data, width, height, margin, dot } = this.props;
     if (!data.length || !this.svg) return;
@@ -73,13 +144,13 @@ export default class D3EventFlowViz {
     const colorScale = d3
       .scaleSequential()
       .domain([minSize, maxSize])
-      .interpolator(d3.interpolateWarm)
-      .clamp(true);
+      .interpolator(d3.interpolateWarm);
 
     const timeScale = d3
       .scaleTime()
       .domain([new Date(min), new Date(max)])
-      .range([0, width]);
+      .range([0, width - 50])
+      .nice();
 
     const linearScale = d3
       .scaleLinear()
@@ -127,5 +198,9 @@ export default class D3EventFlowViz {
     shapeGroup.call(xAxis).attr("color", AXIS_COLOR);
   };
 
+  /**
+   * @description Remove the visualization from the SVG container element
+   * @memberof D3EventFlowViz
+   */
   remove = () => this.svg.exit().remove();
 }
