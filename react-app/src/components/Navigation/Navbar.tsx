@@ -12,9 +12,9 @@ interface NavbarProps {
 /**
  * Navbar component
  * @param {NavbarProps} props - Navbar component props
- * @returns {React.ReactNode} Navbar component
+ * @returns {JSX.Element} Navbar component
  */
-export const Navbar = ({ links }: NavbarProps): React.ReactNode => {
+export const Navbar = ({ links }: NavbarProps): JSX.Element => {
   return (
     <nav className="flex flex-row sm:justify-center lg:justify-start max-w-full py-2">
       <ul className="inline-flex gap-2">
