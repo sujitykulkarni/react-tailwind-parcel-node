@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Column, Row } from "react-table";
 import { Link } from "react-router-dom";
 import Table, {
@@ -12,6 +12,10 @@ import {
 } from "../../interfaces/element.interface";
 import { Team } from "../../interfaces/teams.interfaces";
 import { sortBy } from "lodash";
+import Card from "../../components/Card/Card";
+import Stat from "../../components/Stat/Stat";
+import Select from "../../components/Select/Select";
+import { ELEMENT_STATS } from "../../constants";
 
 const columnWidths = {
   minWidth: 50,
@@ -25,6 +29,7 @@ const PlayersTable = ({
   teams: Team[];
   players: ElementWithTeamName[];
 }) => {
+  const [selectedStat, setSelectedStat] = useState<string | undefined>();
   const columns: Column<Element & { team_short_name: string }>[] = useMemo(
     () => [
       {
@@ -35,8 +40,8 @@ const PlayersTable = ({
           return (
             <Link
               to={`/player/${row.original.id}`}
-              className="hover:underline"
               state={{ playerInfo: row.original }}
+              className="hover:text-blue-700"
             >
               {value}
             </Link>
@@ -249,34 +254,77 @@ const PlayersTable = ({
     []
   );
 
+  const stats = useMemo(() => {
+    const sorter = (key: keyof ElementWithTeamName) =>
+      players.sort((a, b) => b[key] - a[key])[0];
+    const topScorer = sorter("goals_scored");
+    const topAssists = sorter("assists");
+    const topSaves = sorter("saves");
+    return {
+      topScorer,
+      topAssists,
+      topSaves,
+    };
+  }, [players]);
+
   return (
-    <div className="flex flex-col justify-between gap-4">
-      <div className="flex flex-row gap-4">
-        <span>{players.length} players</span>
-        <div>
-          Default Sort By
-          <select>
-            {columns.map((col, index) => (
-              <option key={index}>{col.Header}</option>
-            ))}
-          </select>
+    <Card
+      title={
+        <div className="flex flex-row justify-between gap-2">
+          <div className="flex flex-row justify-between gap-6">
+            <Stat
+              label="👕 Players"
+              value={players.length}
+              tooltip="Total Players"
+            />
+            <Stat
+              label={`⚽ ${stats.topScorer.web_name}`}
+              value={stats.topScorer.goals_scored}
+              tooltip="Top Scorer"
+            />
+            <Stat
+              label={`👟 ${stats.topAssists.web_name}`}
+              value={stats.topAssists.assists}
+              tooltip="Top Assists"
+            />
+            <Stat
+              label={`🧤 ${stats.topSaves.web_name}`}
+              value={stats.topSaves.saves}
+              tooltip="Top Saves"
+            />
+          </div>
+          <Select
+            label="Sort By"
+            options={ELEMENT_STATS.map((col) => ({
+              key: col.name,
+              value: col.name,
+              text: col.label,
+            }))}
+            onSelect={(value) => setSelectedStat(value)}
+            selected={selectedStat}
+          />
+        </div>
+      }
+    >
+      <div className="flex flex-col justify-between gap-4">
+        <div className="max-w-full max-h-full overflow-x-auto">
+          <Table<Element>
+            columns={columns}
+            data={players}
+            initialState={{
+              sortBy: selectedStat
+                ? [{ id: selectedStat, desc: true }]
+                : [
+                    {
+                      id: "form",
+                      desc: true,
+                    },
+                  ],
+            }}
+          />
         </div>
       </div>
-      <div className="max-w-full max-h-full overflow-x-auto">
-        <Table<Element>
-          columns={columns}
-          data={players}
-          initialState={{
-            sortBy: [
-              {
-                id: "form",
-                desc: true,
-              },
-            ],
-          }}
-        />
-      </div>
-    </div>
+    </Card>
   );
 };
 
