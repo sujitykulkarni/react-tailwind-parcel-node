@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ScoreGroupPie from "./Charts/ScoreGroupPie";
 import ScoreGroupBarChart from "./Charts/ScoreGroupBarChart";
 import { useFixtureStore } from "../../store/fixture.store";
+import Button from "../../components/Button/Button";
 /**
  * Component that renders pie or bar chart based on team score groups
  * @returns
@@ -62,8 +63,8 @@ export const ScoreGroupCharts = () => {
           Scores from completed fixtures grouped by their count
         </h1>
         <div className="flex gap-2">
-          <button onClick={() => setChartType("pie")}>Pie</button>
-          <button onClick={() => setChartType("bar")}>Bar</button>
+          <Button onClick={() => setChartType("pie")}>🍕 Pie</Button>
+          <Button onClick={() => setChartType("bar")}>📊 Bar</Button>
         </div>
       </div>
       {chartType === "pie" ? (
