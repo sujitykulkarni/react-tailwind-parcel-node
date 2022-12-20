@@ -11,9 +11,10 @@ const Fixtures = () => {
     <div className="min-h-screen p-2 flex flex-col justify-start gap-4">
       <Navbar
         links={[
-          { path: "events", label: "Events" },
-          { path: "scores", label: "Scores" },
+          { path: "events", label: "Events", icon: "📅", end: true },
+          { path: "scores", label: "Scores", icon: "🥅", end: true },
         ]}
+        secondary
       />
       <Outlet />
     </div>

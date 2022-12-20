@@ -58,15 +58,16 @@ const PlayerSummary = () => {
     <div className="flex sm:flex-col lg:flex-row items-stretch gap-2">
       {selectedPlayer && (
         <div className="flex sm:flex-row lg:flex-col sm:justify-center lg:justify-start items-center flex-none bg-slate-100 lg:min-h-screen lg:max-h-screen">
-          <img
-            src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${selectedPlayer.photo.replace(
-              "jpg",
-              "png"
-            )}`}
-            className="sm:w-1/6 lg:w-full"
-          />
-          <div className="flex sm:flex-col p-2 box-border">
-            <h1 className="text-2xl">
+          <div className="rounded-full sm:w-1/6 lg:w-full bg-center">
+            <img
+              src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${selectedPlayer.photo.replace(
+                "jpg",
+                "png"
+              )}`}
+            />
+          </div>
+          <div className="flex sm:flex-col p-2 box-border text-center text-slate-700">
+            <h1 className="text-2xl font-bold">
               {selectedPlayer.first_name} {selectedPlayer.second_name}
             </h1>
             {selectedPlayerTeam && (
@@ -84,6 +85,7 @@ const PlayerSummary = () => {
             { path: "past", label: "Past Seasons" },
             { path: "visualizations", label: "Visualizations" },
           ]}
+          secondary
         />
         {summaryStore[id] && (
           <Outlet context={{ playersSummary: summaryStore[id] }} />

@@ -1,12 +1,8 @@
 import classNames from "classnames";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { globalNavLinks } from "../../constants";
 
-const globalNavLinks = [
-  { path: "/", label: "Home" },
-  { path: "/fixtures", label: "Fixtures" },
-  { path: "/notes", label: "Set Piece Notes" },
-];
 const Sidebar: React.FunctionComponent<{
   links?: Record<"path" | "label", string>[];
   direction?: "row" | "col";
