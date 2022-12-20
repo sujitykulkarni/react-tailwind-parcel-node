@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useFixtureStore } from "../../../store/fixture.store";
 import EventFlowChart from "../../../components/EventFlowChart/EventFlowChart";
+import Card from "../../../components/Card/Card";
 
 /**
  * Fixture events visualizations of following categories
@@ -83,13 +84,13 @@ export const FixtureEvents = (): JSX.Element | null => {
   if (!gameWeekEventFlowData) return null;
 
   return (
-    <div>
-      <h1 className="text-2xl">
-        Fixtures sized by transfers made per game week
-      </h1>
-      <EventFlowChart data={gameWeekEventFlowData} id="a" />
-      <h1 className="text-2xl">Total goals scored at the end of a game week</h1>
-      <EventFlowChart data={goalsEventFlowData} id="b" />
+    <div className="flex flex-col gap-4">
+      <Card title="Fixtures sized by transfers made per game week">
+        <EventFlowChart data={gameWeekEventFlowData} id="a" />
+      </Card>
+      <Card title="Total goals scored at the end of a game week">
+        <EventFlowChart data={goalsEventFlowData} id="b" />
+      </Card>
     </div>
   );
 };
