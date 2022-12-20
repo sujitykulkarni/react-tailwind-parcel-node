@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useBlockLayout, useFilters, useSortBy, useTable } from "react-table";
 import { TableComponentProps } from "./table.interface";
 import { FixedSizeList } from "react-window";
+import Select from "../Select/Select";
 
 export const filterGreaterThan = (
   rows: any[],
@@ -31,7 +32,7 @@ export const SliderColumnFilter = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 align-middle">
         <span className="align-middle">{filterValue || min}</span>
         <input
           type="range"
@@ -42,7 +43,7 @@ export const SliderColumnFilter = ({
             setFilter(parseInt(e.target.value, 10));
           }}
           onClick={(e) => e.stopPropagation()}
-          className="w-3/4 align-middle"
+          className="w-full h-7 text-sm align-middle appearance-none rounded-full bg-slate-100 border-gray-50 border-4 rounded-full-thumb rounded-full-track text-blue-700"
         />
       </div>
       <button onClick={() => setFilter(undefined)}>↩</button>
@@ -61,19 +62,14 @@ export const SelectColumnFilter = ({
     return list;
   }, [id, preFilteredRows]);
   return (
-    <select
-      value={filterValue}
-      onChange={(e) => setFilter(e.target.value || undefined)}
-    >
-      <option key="all" value="">
-        All
-      </option>
-      {options.map((item, index) => (
-        <option key={index} value={item}>
-          {item}
-        </option>
-      ))}
-    </select>
+    <Select
+      options={options.map((option, index) => ({
+        key: index,
+        value: option,
+        text: option,
+      }))}
+      onSelect={setFilter}
+    />
   );
 };
 
@@ -132,7 +128,7 @@ const Table = <T extends object>({
       const row = rows[index];
       prepareRow(row);
       return (
-        <div {...row.getRowProps({ style })} className="tr hover:bg-slate-300">
+        <div {...row.getRowProps({ style })} className="tr hover:bg-stone-100">
           {
             // Loop over the rows cells
             row.cells.map((cell) => {
@@ -140,7 +136,7 @@ const Table = <T extends object>({
               return (
                 <div
                   {...cell.getCellProps()}
-                  className="td p-2 m-0 border-l border-t-0 border-b border-r text-left last:border-b whitespace-normal break-words"
+                  className="td p-2 m-0 text-slate-700 border-slate-100 border-l border-t-0 border-b border-r text-left last:border-b whitespace-normal break-words antialiased"
                 >
                   {
                     // Render the cell contents
@@ -172,9 +168,9 @@ const Table = <T extends object>({
                   // Apply the header cell props
                   <div
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="th p-2 m-0 border-l border-t border-b border-r text-center last:border-b"
+                    className="th p-2 m-0 border-slate-100 border-l border-t border-b border-r text-center last:border-b"
                   >
-                    <span className="whitespace-normal font-bold">
+                    <span className="whitespace-normal antialiased text-stone-700 font-bold">
                       {
                         // Render the header
                         column.render("Header")
