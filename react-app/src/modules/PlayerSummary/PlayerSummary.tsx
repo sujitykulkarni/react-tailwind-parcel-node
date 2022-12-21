@@ -5,6 +5,7 @@ import { useTeamStore } from "../../store/team.store";
 import { isEmpty } from "lodash";
 import { ELEMENT_TYPE } from "../../constants";
 import { Navbar } from "../../components/Navigation/Navbar";
+import Card from "../../components/Card/Card";
 
 /**
  * Renders a player's summary data
@@ -57,13 +58,14 @@ const PlayerSummary = () => {
   return (
     <div className="flex sm:flex-col lg:flex-row items-stretch gap-2">
       {selectedPlayer && (
-        <div className="flex sm:flex-row lg:flex-col sm:justify-center lg:justify-start items-center flex-none bg-slate-100 lg:min-h-screen lg:max-h-screen">
-          <div className="rounded-full sm:w-1/6 lg:w-full bg-center">
+        <div className="rounded flex sm:flex-row lg:flex-col sm:justify-center lg:justify-start items-center flex-none bg-slate-50 lg:max-h-screen p-4">
+          <div>
             <img
               src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${selectedPlayer.photo.replace(
                 "jpg",
                 "png"
               )}`}
+              className="w-48 h-48 mb-3 rounded-full drop-shadow-xl border-4 border-slate-50"
             />
           </div>
           <div className="flex sm:flex-col p-2 box-border text-center text-slate-700">
@@ -88,7 +90,9 @@ const PlayerSummary = () => {
           secondary
         />
         {summaryStore[id] && (
-          <Outlet context={{ playersSummary: summaryStore[id] }} />
+          <Card>
+            <Outlet context={{ playersSummary: summaryStore[id] }} />
+          </Card>
         )}
       </div>
     </div>
