@@ -18,6 +18,7 @@ import { Root } from "./modules/Root";
 import Fixtures from "./modules/Fixtures/Fixtures";
 import { FixtureEvents } from "./modules/Fixtures/Charts/FixtureEvents";
 import { ScoreGroupCharts } from "./modules/Fixtures/ScoreGroupCharts";
+import Home from "./modules/Home/Home";
 
 // Router config
 export const router = createBrowserRouter([
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: "Home",
+        element: <Home />,
       },
       {
         path: "/players",
