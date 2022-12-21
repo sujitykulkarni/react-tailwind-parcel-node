@@ -14,7 +14,7 @@ const columnWidths = {
   maxWidth: 250,
 };
 
-export const PlayerFixtures = () => {
+const PlayerFixtures = () => {
   const {
     playersSummary: { fixtures },
   } = useOutletContext<{ playersSummary: ElementSummary }>();
@@ -82,3 +82,5 @@ export const PlayerFixtures = () => {
     </div>
   );
 };
+
+export default PlayerFixtures;

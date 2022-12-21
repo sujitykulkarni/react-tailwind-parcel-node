@@ -13,7 +13,7 @@ const columnWidths = {
   maxWidth: 250,
 };
 
-export const PlayerHistory = () => {
+const PlayerHistory = () => {
   const {
     playersSummary: {
       history,
@@ -67,3 +67,5 @@ export const PlayerHistory = () => {
     </div>
   );
 };
+
+export default PlayerHistory;

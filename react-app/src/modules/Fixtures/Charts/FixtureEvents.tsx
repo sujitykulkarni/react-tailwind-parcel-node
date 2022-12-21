@@ -9,7 +9,7 @@ import Card from "../../../components/Card/Card";
  * -  Total goals scored at the end of a game week
  * @returns {JSX.Element | null}
  */
-export const FixtureEvents = (): JSX.Element | null => {
+const FixtureEvents = (): JSX.Element | null => {
   const [gameWeeks, fixtures, fetchGameWeeks, fetchFixtures] = useFixtureStore(
     (state) => [
       state.gameWeeks,
@@ -94,3 +94,5 @@ export const FixtureEvents = (): JSX.Element | null => {
     </div>
   );
 };
+
+export default FixtureEvents;

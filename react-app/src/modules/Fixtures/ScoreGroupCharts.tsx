@@ -7,7 +7,7 @@ import Button from "../../components/Button/Button";
  * Component that renders pie or bar chart based on team score groups
  * @returns
  */
-export const ScoreGroupCharts = () => {
+const ScoreGroupCharts = () => {
   const [chartType, setChartType] = useState<"pie" | "bar">("bar");
   const [fixtures, fetchFixtures] = useFixtureStore((state) => [
     state.fixtures,
@@ -75,3 +75,5 @@ export const ScoreGroupCharts = () => {
     </div>
   );
 };
+
+export default ScoreGroupCharts;

@@ -1,24 +1,49 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import "./index.css";
-import Dashboard from "./modules/Dashboard/Dashboard";
-import PlayerPointsChart from "./modules/PlayerSummary/Charts/PlayerPointsChart";
-import PlayerPointsVsOppnChart from "./modules/PlayerSummary/Charts/PlayerPointsVsOppnChart";
-import PlayerTransfersVsOppnChart from "./modules/PlayerSummary/Charts/PlayerTransfersVsOppnChart";
-import PlayerTransfersChart from "./modules/PlayerSummary/Charts/PlayerTransfersChart";
-import PlayerValueChart from "./modules/PlayerSummary/Charts/PlayerValueChart";
-import { PlayerFixtures } from "./modules/PlayerSummary/PlayerFixtures";
-import { PlayerHistory } from "./modules/PlayerSummary/PlayerHistory";
-import PlayerPastSeasons from "./modules/PlayerSummary/PlayerPastSeasons";
-import PlayerSummary from "./modules/PlayerSummary/PlayerSummary";
-import PlayerVisualizations from "./modules/PlayerSummary/PlayerVisualizations";
 import { Root } from "./modules/Root";
-import Fixtures from "./modules/Fixtures/Fixtures";
-import { FixtureEvents } from "./modules/Fixtures/Charts/FixtureEvents";
-import { ScoreGroupCharts } from "./modules/Fixtures/ScoreGroupCharts";
 import Home from "./modules/Home/Home";
+
+const Dashboard = lazy(() => import("./modules/Dashboard/Dashboard"));
+const PlayerPointsChart = lazy(
+  () => import("./modules/PlayerSummary/Charts/PlayerPointsChart")
+);
+const PlayerPointsVsOppnChart = lazy(
+  () => import("./modules/PlayerSummary/Charts/PlayerPointsVsOppnChart")
+);
+const PlayerTransfersVsOppnChart = lazy(
+  () => import("./modules/PlayerSummary/Charts/PlayerTransfersVsOppnChart")
+);
+const PlayerTransfersChart = lazy(
+  () => import("./modules/PlayerSummary/Charts/PlayerTransfersChart")
+);
+const PlayerValueChart = lazy(
+  () => import("./modules/PlayerSummary/Charts/PlayerValueChart")
+);
+const PlayerFixtures = lazy(
+  () => import("./modules/PlayerSummary/PlayerFixtures")
+);
+const PlayerHistory = lazy(
+  () => import("./modules/PlayerSummary/PlayerHistory")
+);
+const PlayerPastSeasons = lazy(
+  () => import("./modules/PlayerSummary/PlayerPastSeasons")
+);
+const PlayerSummary = lazy(
+  () => import("./modules/PlayerSummary/PlayerSummary")
+);
+const PlayerVisualizations = lazy(
+  () => import("./modules/PlayerSummary/PlayerVisualizations")
+);
+const Fixtures = lazy(() => import("./modules/Fixtures/Fixtures"));
+const FixtureEvents = lazy(
+  () => import("./modules/Fixtures/Charts/FixtureEvents")
+);
+const ScoreGroupCharts = lazy(
+  () => import("./modules/Fixtures/ScoreGroupCharts")
+);
 
 // Router config
 export const router = createBrowserRouter([
