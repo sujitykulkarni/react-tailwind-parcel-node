@@ -22,9 +22,9 @@ export const Navbar = ({ links, secondary }: NavbarProps): JSX.Element => {
   const navClasses = classNames(
     "flex flex-row justify-between max-w-full py-4 px-2 gap-2 rounded-lg",
     {
-      "bg-slate-50": !secondary,
-      "bg-transparent": secondary,
-      shadow: !secondary,
+      "bg-slate-50": secondary,
+      "bg-transparent": !secondary,
+      shadow: secondary,
       "border-slate-100": secondary,
       border: secondary,
     }
@@ -38,12 +38,10 @@ export const Navbar = ({ links, secondary }: NavbarProps): JSX.Element => {
             <NavLink
               to={item.path}
               className={({ isActive }) =>
-                `p-2 rounded text-blue-500 ${
+                `p-2 rounded ${
                   isActive
-                    ? secondary
-                      ? "bg-stone-400 text-slate-50"
-                      : "bg-blue-400 text-slate-50"
-                    : undefined
+                    ? "text-indigo-900 border-accent border-2"
+                    : "text-blue-500"
                 }`
               }
               end={item.end}
