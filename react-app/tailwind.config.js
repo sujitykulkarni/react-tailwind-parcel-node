@@ -960,6 +960,15 @@ module.exports = {
       40: "40",
       50: "50",
     },
+    extend: {
+      colors: {
+        primary: "#4169E1",
+        secondary: "#6A5ACD",
+        success: "#228B22",
+        error: "#DC143C",
+        warning: "#FFD700",
+      },
+    },
   },
   plugins: [],
 };
