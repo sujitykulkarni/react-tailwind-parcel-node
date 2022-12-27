@@ -4,7 +4,7 @@ import { usePlayersStore } from "../../store/player.store";
 import { useTeamStore } from "../../store/team.store";
 import PlayersTable from "../PlayersTable/PlayersTable";
 
-const PlayersDashboard = () => {
+const PlayersOverview = () => {
   const [playersStore, fetchPlayers] = usePlayersStore((state) => [
     state.players,
     state.fetchPlayers,
@@ -52,4 +52,4 @@ const PlayersDashboard = () => {
   return <PlayersTable teams={teamStore} players={playersWithTeamName} />;
 };
 
-export default PlayersDashboard;
+export default PlayersOverview;
