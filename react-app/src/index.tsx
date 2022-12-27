@@ -6,7 +6,9 @@ import "./index.css";
 import { Root } from "./modules/Root";
 import Home from "./modules/Home/Home";
 
-const Dashboard = lazy(() => import("./modules/Dashboard/Dashboard"));
+const PlayersDashboard = lazy(
+  () => import("./modules/PlayersDashboard/PlayersDashboard")
+);
 const PlayerPointsChart = lazy(
   () => import("./modules/PlayerSummary/Charts/PlayerPointsChart")
 );
@@ -58,7 +60,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/players",
-        element: <Dashboard />,
+        element: <PlayersDashboard />,
       },
       {
         path: "/fixtures",

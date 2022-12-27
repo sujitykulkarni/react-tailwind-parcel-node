@@ -3,7 +3,8 @@ import { ElementWithTeamName } from "../../interfaces/element.interface";
 import { usePlayersStore } from "../../store/player.store";
 import { useTeamStore } from "../../store/team.store";
 import PlayersTable from "../PlayersTable/PlayersTable";
-const Dashboard = () => {
+
+const PlayersDashboard = () => {
   const [playersStore, fetchPlayers] = usePlayersStore((state) => [
     state.players,
     state.fetchPlayers,
@@ -51,4 +52,4 @@ const Dashboard = () => {
   return <PlayersTable teams={teamStore} players={playersWithTeamName} />;
 };
 
-export default Dashboard;
+export default PlayersDashboard;
