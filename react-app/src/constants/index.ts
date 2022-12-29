@@ -1,3 +1,5 @@
+import { Element } from "../interfaces/element.interface";
+
 export const { API_HOST } = process.env;
 
 export enum ELEMENT_TYPE {
@@ -14,7 +16,7 @@ export const globalNavLinks = [
   { path: "/notes", label: "Set Piece Notes", icon: "📝" },
 ];
 
-export const ELEMENT_STATS = [
+export const ELEMENT_STATS: Array<{ label: string; name: keyof Element }> = [
   {
     label: "Minutes played",
     name: "minutes",
@@ -103,4 +105,13 @@ export const ELEMENT_STATS = [
     label: "Expected Goals Conceded",
     name: "expected_goals_conceded",
   },
+];
+
+export const CHART_COLORS = [
+  "#c4b5fd",
+  "#fb7185",
+  "#14b8a6",
+  "#ef4444",
+  "#ea580c",
+  "#b45309",
 ];
