@@ -21,10 +21,10 @@ const Select = ({
     onSelect(event.target.value);
   };
   return (
-    <div className="text-sm text-gray-500">
+    <div className="flex flex-row gap-2 items-center text-sm text-gray-500">
       <label className="inline-block text-xs">{label}</label>
       <select
-        className="inline-block bg-slate-50 border-slate-100 border rounded-md px-2 py-1 w-full"
+        className="inline-block bg-slate-50 border-slate-100 focus:border-blue-100 border rounded-md px-2 py-1 w-full"
         onChange={handleChange}
         value={selected ?? ""}
       >
