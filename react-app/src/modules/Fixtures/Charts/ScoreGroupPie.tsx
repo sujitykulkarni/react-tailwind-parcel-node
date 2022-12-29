@@ -7,15 +7,7 @@ import {
   Cell,
   Tooltip,
 } from "recharts";
-
-const COLORS = [
-  "#c4b5fd",
-  "#fb7185",
-  "#14b8a6",
-  "#ef4444",
-  "#ea580c",
-  "#b45309",
-];
+import { CHART_COLORS } from "../../../constants";
 
 const ScoreGroupPie = ({
   data,
@@ -36,7 +28,10 @@ const ScoreGroupPie = ({
           paddingAngle={2}
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell
+              key={`cell-${index}`}
+              fill={CHART_COLORS[index % CHART_COLORS.length]}
+            />
           ))}
         </Pie>
         <Legend verticalAlign="top" iconType={"circle"} />

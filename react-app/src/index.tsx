@@ -6,7 +6,15 @@ import "./index.css";
 import { Root } from "./modules/Root";
 import Home from "./modules/Home/Home";
 
-const Dashboard = lazy(() => import("./modules/Dashboard/Dashboard"));
+const PlayersViewOutlet = lazy(
+  () => import("./modules/PlayersDashboard/PlayersViewOutlet")
+);
+const PlayersOverview = lazy(
+  () => import("./modules/PlayersDashboard/PlayersOverview")
+);
+const PlayersSegments = lazy(
+  () => import("./modules/PlayersDashboard/PlayersSegments")
+);
 const PlayerPointsChart = lazy(
   () => import("./modules/PlayerSummary/Charts/PlayerPointsChart")
 );
@@ -58,7 +66,22 @@ export const router = createBrowserRouter([
       },
       {
         path: "/players",
-        element: <Dashboard />,
+        element: <PlayersViewOutlet />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <PlayersOverview />,
+          },
+          {
+            path: "overview",
+            element: <PlayersOverview />,
+          },
+          {
+            path: "segment/:category/:count/:criteria",
+            element: <PlayersSegments />,
+          },
+        ],
       },
       {
         path: "/fixtures",

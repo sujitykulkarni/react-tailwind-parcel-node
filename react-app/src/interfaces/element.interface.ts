@@ -72,6 +72,19 @@ export interface Element extends Partial<AdvancedElementData> {
   direct_freekicks_text: string;
   penalties_order?: any;
   penalties_text: string;
+  expected_goals: string;
+  expected_assists: string;
+  expected_goal_involvements: string;
+  expected_goals_conceded: string;
+  expected_goals_per_90: number;
+  saves_per_90: number;
+  expected_assists_per_90: number;
+  expected_goal_involvements_per_90: number;
+  expected_goals_conceded_per_90: number;
+  goals_conceded_per_90: number;
+  starts_per_90: number;
+  clean_sheets_per_90: number;
+  starts: number;
 }
 
 export interface ElementWithTeamName extends Element {

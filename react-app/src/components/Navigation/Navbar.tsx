@@ -20,7 +20,7 @@ interface NavbarProps {
  */
 export const Navbar = ({ links, secondary }: NavbarProps): JSX.Element => {
   const navClasses = classNames(
-    "flex flex-row justify-between max-w-full py-4 px-2 gap-2 rounded-lg",
+    "flex flex-row justify-between w-full max-w-full py-4 px-2 gap-2 rounded-lg",
     {
       "bg-slate-50": secondary,
       "bg-transparent": !secondary,

@@ -3,6 +3,8 @@ import { useBlockLayout, useFilters, useSortBy, useTable } from "react-table";
 import { TableComponentProps } from "./table.interface";
 import { FixedSizeList } from "react-window";
 import Select from "../Select/Select";
+import Input from "../Input/Input";
+import RangeSlider from "../Input/RangeSlider";
 
 export const filterGreaterThan = (
   rows: any[],
@@ -33,17 +35,14 @@ export const SliderColumnFilter = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-2 align-middle">
-        <span className="align-middle">{filterValue || min}</span>
-        <input
-          type="range"
+        <RangeSlider
           min={min}
           max={max}
           value={filterValue || min}
           onChange={(e) => {
             setFilter(parseInt(e.target.value, 10));
           }}
-          onClick={(e) => e.stopPropagation()}
-          className="w-full h-7 text-sm align-middle appearance-none rounded-full bg-slate-100 border-gray-50 border-4 rounded-full-thumb rounded-full-track text-blue-700"
+          label={filterValue || min}
         />
       </div>
       <button onClick={() => setFilter(undefined)}>↩</button>

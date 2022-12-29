@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import React from "react";
+import { Intent } from "../../interfaces/ui.interface";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  intent?: "primary" | "secondary" | "success" | "error" | "warning";
+  intent?: Intent;
 };
 
 const Button: React.FC<ButtonProps> = ({

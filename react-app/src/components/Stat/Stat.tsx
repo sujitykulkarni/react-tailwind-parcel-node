@@ -5,7 +5,7 @@ const Stat = ({
   value,
   tooltip,
 }: {
-  label: string;
+  label?: string;
   value: string | number;
   tooltip?: string;
 }) => {

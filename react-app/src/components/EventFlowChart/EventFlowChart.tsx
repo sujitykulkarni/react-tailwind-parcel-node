@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import D3EventFlowViz, { D3EventFlowData } from "./d3EventFlowChart";
+import D3EventFlowViz from "eventflowviz";
+import { D3EventFlowData } from "eventflowviz/lib/typings";
 
 /**
  * @description Component that renders event flow visualization using D3EventFlowViz
@@ -29,6 +30,9 @@ const EventFlowChart = React.memo(
           },
           id,
           data,
+          dot: {
+            radius: 15,
+          },
         });
         viz.draw();
       }
