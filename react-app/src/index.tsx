@@ -12,6 +12,9 @@ const PlayersViewOutlet = lazy(
 const PlayersOverview = lazy(
   () => import("./modules/PlayersDashboard/PlayersOverview")
 );
+const PlayersSegments = lazy(
+  () => import("./modules/PlayersDashboard/PlayersSegments")
+);
 const PlayerPointsChart = lazy(
   () => import("./modules/PlayerSummary/Charts/PlayerPointsChart")
 );
@@ -64,6 +67,7 @@ export const router = createBrowserRouter([
       {
         path: "/players",
         element: <PlayersViewOutlet />,
+        errorElement: <ErrorPage />,
         children: [
           {
             index: true,
@@ -74,8 +78,8 @@ export const router = createBrowserRouter([
             element: <PlayersOverview />,
           },
           {
-            path: "segments",
-            element: "Segments",
+            path: "segment/:category/:count/:criteria",
+            element: <PlayersSegments />,
           },
         ],
       },
