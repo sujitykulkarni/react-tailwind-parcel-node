@@ -6,6 +6,7 @@ import { isEmpty } from "lodash";
 import { ELEMENT_TYPE } from "../../constants";
 import { Navbar } from "../../components/Navigation/Navbar";
 import Card from "../../components/Card/Card";
+import { Avatar } from "../../components/Avatar/Avatar";
 
 /**
  * Renders a player's summary data
@@ -60,13 +61,7 @@ const PlayerSummary = () => {
       {selectedPlayer && (
         <div className="rounded flex sm:flex-row lg:flex-col sm:justify-center lg:justify-start items-center flex-none bg-slate-50 lg:max-h-screen p-4">
           <div>
-            <img
-              src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${selectedPlayer.photo.replace(
-                "jpg",
-                "png"
-              )}`}
-              className="w-48 h-48 mb-3 rounded-full drop-shadow-xl border-4 border-slate-50"
-            />
+            <Avatar path={selectedPlayer.photo} />
           </div>
           <div className="flex sm:flex-col p-2 box-border text-center text-slate-700">
             <h1 className="text-2xl font-bold">
