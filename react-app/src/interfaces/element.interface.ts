@@ -84,6 +84,7 @@ export interface Element extends Partial<AdvancedElementData> {
   goals_conceded_per_90: number;
   starts_per_90: number;
   clean_sheets_per_90: number;
+  starts: number;
 }
 
 export interface ElementWithTeamName extends Element {
